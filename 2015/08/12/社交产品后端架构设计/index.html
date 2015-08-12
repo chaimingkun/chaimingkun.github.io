@@ -3,17 +3,46 @@
 <head>
   <meta charset="utf-8">
   
-  <title>chai&#39;s blog</title>
+  <title>社交产品后端架构设计 | chai&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="hello">
-<meta property="og:type" content="website">
-<meta property="og:title" content="chai's blog">
-<meta property="og:url" content="https://github.com/chaimingkun/chaimingkun.github.io.git/index.html">
+  <meta name="description" content="本篇文章会向读者展示几个架构设计的关键点，使一个社交应用能够成为真正的下一代社交产品。以下几个属性将会影响到架构的设计：
+a）可用性 
+b）可扩展性
+c）性能和灵活性可扩展
+##目标
+a）确保用户的内容数据能够很方便的被其他用户发现和获取.
+b）确保内容推送是相关的，不仅在语义上，也是从用户设备的角度。
+c）确保实时更新生成、推送和分析。
+d）尽可能地节省用户的资源。
+e）不论服务器负载变化如何，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="社交产品后端架构设计">
+<meta property="og:url" content="https://github.com/chaimingkun/chaimingkun.github.io.git/2015/08/12/社交产品后端架构设计/index.html">
 <meta property="og:site_name" content="chai's blog">
-<meta property="og:description" content="hello">
+<meta property="og:description" content="本篇文章会向读者展示几个架构设计的关键点，使一个社交应用能够成为真正的下一代社交产品。以下几个属性将会影响到架构的设计：
+a）可用性 
+b）可扩展性
+c）性能和灵活性可扩展
+##目标
+a）确保用户的内容数据能够很方便的被其他用户发现和获取.
+b）确保内容推送是相关的，不仅在语义上，也是从用户设备的角度。
+c）确保实时更新生成、推送和分析。
+d）尽可能地节省用户的资源。
+e）不论服务器负载变化如何，">
+<meta property="og:image" content="http://mmbiz.qpic.cn/mmbiz/Pn4Sm0RsAugricq4n09dUUdxJtyAQtCicgFW7tU2fFdXZM7zAPFOet0kyxqA5r5xJGJWYtH4598JNz6cfibnsqq4A/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1">
+<meta property="og:updated_time" content="2015-08-12T07:34:54.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="chai's blog">
-<meta name="twitter:description" content="hello">
+<meta name="twitter:title" content="社交产品后端架构设计">
+<meta name="twitter:description" content="本篇文章会向读者展示几个架构设计的关键点，使一个社交应用能够成为真正的下一代社交产品。以下几个属性将会影响到架构的设计：
+a）可用性 
+b）可扩展性
+c）性能和灵活性可扩展
+##目标
+a）确保用户的内容数据能够很方便的被其他用户发现和获取.
+b）确保内容推送是相关的，不仅在语义上，也是从用户设备的角度。
+c）确保实时更新生成、推送和分析。
+d）尽可能地节省用户的资源。
+e）不论服务器负载变化如何，">
   
     <link rel="alternative" href="/atom.xml" title="chai&#39;s blog" type="application/atom+xml">
   
@@ -63,9 +92,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-社交产品后端架构设计" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-社交产品后端架构设计" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/08/12/社交产品后端架构设计/" class="article-date">
   <time datetime="2015-08-12T15:12:59.000Z" itemprop="datePublished">2015-08-12</time>
@@ -78,8 +105,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/08/12/社交产品后端架构设计/">社交产品后端架构设计</a>
+    <h1 class="article-title" itemprop="name">
+      社交产品后端架构设计
     </h1>
   
 
@@ -175,95 +202,20 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-说说我的这次创业历程" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/08/11/说说我的这次创业历程/" class="article-date">
-  <time datetime="2015-08-11T14:18:20.000Z" itemprop="datePublished">2015-08-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/08/11/说说我的这次创业历程/">说说我的这次创业历程</a>
-    </h1>
+    <a href="/2015/08/11/说说我的这次创业历程/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">说说我的这次创业历程</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>突然闲下来了，想去写写我这一年时间的创业经历，所有的都准备好的时候发现，词穷了，创业也是一样，当所有的希望将要在那一刻实现的时候，落空了。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/chaimingkun/chaimingkun.github.io.git/2015/08/11/说说我的这次创业历程/" data-id="cid8gpcta0001wkbwao86hnhp" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/创业/">创业</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
 
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/08/11/hello-world/" class="article-date">
-  <time datetime="2015-08-11T06:15:59.000Z" itemprop="datePublished">2015-08-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/08/11/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a>】]</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/chaimingkun/chaimingkun.github.io.git/2015/08/11/hello-world/" data-id="cid8gpcs80000wkbwtf5nsmjm" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-  
 </section>
         
           <aside id="sidebar">
