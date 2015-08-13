@@ -87,7 +87,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="使用_OkHttp_作为传输层的实现">使用 OkHttp 作为传输层的实现</h2><h3 id="完整的代码实现"><a href="Github dodocat/AndroidNetworkDemo">完整的代码实现</a></h3><p>Volley 默认根据 Android 系统版本使用不同的 Http 传输协议实现.<br>在 Android 3.0 以上 Volley 使用 ApacheHttpStack 作为传输协议, 在2.3 及以下使用 HttpURLConnection 作为传输层协议</p>
+        <h2 id="使用_OkHttp_作为传输层的实现">使用 OkHttp 作为传输层的实现</h2><h3 id="完整的代码实现"><a href="https://github.com/dodocat/AndroidNetworkdemo">完整的代码实现</a></h3><p>Volley 默认根据 Android 系统版本使用不同的 Http 传输协议实现.<br>在 Android 3.0 以上 Volley 使用 ApacheHttpStack 作为传输协议, 在2.3 及以下使用 HttpURLConnection 作为传输层协议</p>
 <p>OkHttp 相较于其它的实现有以下的优点.</p>
 <blockquote>
 <ul>
@@ -110,7 +110,7 @@
 </li>
 <li>Create a OkHttpStack with a custom OkHttpClient</li>
 <li><p>@param okHttpClient Custom OkHttpClient, NonNull<br>*/<br>public OkHttpStack(OkHttpClient okHttpClient) {<br> this.okHttpClient = okHttpClient;<br>}</p>
-<p>@Override<br>protected HttpURLConnection createConnection(URL url) throws IOException {<br> OkUrlFactory okUrlFactory = new OkUrlFactory(okHttpClient);<br> return okUrlFactory.open(url);<br>}<br>}<br><br>2.然后使用 OkHttpStack 创建新的 Volley requestQueue.<br><pre><code>requestQueue = Volley.newRequestQueue(getContext(), new OkHttpStack());<br>requestQueue.start();<br></code></pre><br>作为一个有节操的开发者应该使用 Https 来保护用户的数据, Android 开发者网站上文章<a href="https://developer.android.com/training/articles/security-ssl.html" target="_blank" rel="external">Security with HTTPS and SSL</a>做了详尽的阐述.</p>
+<p>@Override<br>protected HttpURLConnection createConnection(URL url) throws IOException {<br> OkUrlFactory okUrlFactory = new OkUrlFactory(okHttpClient);<br> return okUrlFactory.open(url);<br>}<br>}<br>2.然后使用 OkHttpStack 创建新的 Volley requestQueue.<br><pre><code>requestQueue = Volley.newRequestQueue(getContext(), new OkHttpStack());<br>requestQueue.start();</code></pre><br>作为一个有节操的开发者应该使用 Https 来保护用户的数据, Android 开发者网站上文章<a href="https://developer.android.com/training/articles/security-ssl.html" target="_blank" rel="external">Security with HTTPS and SSL</a>做了详尽的阐述.</p>
 </li>
 </ul>
 <p>OkHttp 自身是支持 Https 的. 参考文档 <a href="https://github.com/square/okhttp/wiki/HTTPS">OkHttp Https</a>, 直接使用上面的 OkHttpStack 就可以了, 但是如果遇到服务器开发哥哥使用了自签名的证书(不要问我为什么要用自签名的), 就无法正常访问了.</p>
@@ -129,7 +129,7 @@
 <p><pre><code><br> echo | openssl s_client -connect kyfw.12306.cn:443 2&gt;&amp;1 |  sed -ne ‘/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p’ &gt; kyfw.12306.cn.pem<br> </code></pre><br>2.将证书转为 bks 格式<br>下载最新的bcprov-jdk, 执行下面的命令. storepass 是导出密钥文件的密码.</p>
 <p><pre><code><br>keytool -importcert -v \<br> -trustcacerts \<br> -alias 0 \<br> -file &lt;(openssl x509 -in kyfw.12306.cn.pem) \<br> -keystore $CERTSTORE -storetype BKS \<br> -providerclass org.bouncycastle.jce.provider.BouncyCastleProvider \<br> -providerpath ./bcprov-jdk16-1.46.jar \<br> -storepass asdfqaz </code></pre><br> 3.将导出的 kyfw.bks 文件放入 res/raw 文件夹下.</p>
 <p>4.创建 SelfSignSslOkHttpStack</p>
-<p><pre><code><br>/**</code></pre></p>
+<p><pre><code>/**</code></pre></p>
 <ul>
 <li><p>A HttpStack implement witch can verify specified self-signed certification.<br>*/<br>public class SelfSignSslOkHttpStack extends HurlStack {</p>
 <p>private OkHttpClient okHttpClient;</p>
@@ -149,7 +149,7 @@ connection.setSSLSocketFactory<span class="params">(socketFactoryMap.get<span cl
 return connection;
 </code></pre><p>   } else {</p>
 <pre><code><span class="keyword">return</span>  <span class="keyword">new</span> OkUrlFactory(okHttpClient).<span class="keyword">open</span>(url);
-</code></pre><p>   }<br>}<br>} <br>5.然后用 SelfSignSslOkHttpStack 创建 Volley 的 RequestQueue.<br><pre><code><br>String[] hosts = {“kyfw.12306.cn”};<br>int[] certRes = {R.raw.kyfw};<br>String[] certPass = {“asdfqaz”};<br>socketFactoryMap = new Hashtable&lt;&gt;(hosts.length);</code></pre></p>
+</code></pre><p>   }<br>}<br>} <br>5.然后用 SelfSignSslOkHttpStack 创建 Volley 的 RequestQueue.<br><pre><code>String[] hosts = {“kyfw.12306.cn”};<br>int[] certRes = {R.raw.kyfw};<br>String[] certPass = {“asdfqaz”};<br>socketFactoryMap = new Hashtable&lt;&gt;(hosts.length);</code></pre></p>
 <p>for (int i = 0; i &lt; certRes.length; i++) {<br>   int res = certRes[i];<br>   String password = certPass[i];<br>   SSLSocketFactory sslSocketFactory = createSSLSocketFactory(context, res, password);<br>   socketFactoryMap.put(hosts[i], sslSocketFactory);<br>}</p>
 <p>HurlStack stack = new SelfSignSslOkHttpStack(socketFactoryMap);</p>
 <p>requestQueue = Volley.newRequestQueue(context, stack);<br>requestQueue.start(); <br>6.done</p>
@@ -160,7 +160,7 @@ return connection;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/chaimingkun/chaimingkun.github.io.git/2015/08/14/Android-网络-Volley-OkHttp-Https/" data-id="cida1w6j600000sbwe4d8wxm2" class="article-share-link">Share</a>
+      <a data-url="https://github.com/chaimingkun/chaimingkun.github.io.git/2015/08/14/Android-网络-Volley-OkHttp-Https/" data-id="cida218rb00001ebw4xvny7w2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/volley-okhttp-Android/">volley okhttp Android</a></li></ul>
@@ -263,7 +263,7 @@ return connection;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/chaimingkun/chaimingkun.github.io.git/2015/08/12/社交产品后端架构设计/" data-id="cida1w6kb00060sbw4paw822y" class="article-share-link">Share</a>
+      <a data-url="https://github.com/chaimingkun/chaimingkun.github.io.git/2015/08/12/社交产品后端架构设计/" data-id="cida218s400061ebwvxzh6pqe" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/社交-后端-架构/">社交 后端 架构</a></li></ul>
@@ -302,7 +302,7 @@ return connection;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/chaimingkun/chaimingkun.github.io.git/2015/08/11/说说我的这次创业历程/" data-id="cida1w6k200030sbwlrfi5qjr" class="article-share-link">Share</a>
+      <a data-url="https://github.com/chaimingkun/chaimingkun.github.io.git/2015/08/11/说说我的这次创业历程/" data-id="cida218s100031ebw366r6o31" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/创业/">创业</a></li></ul>
