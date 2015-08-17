@@ -19,7 +19,7 @@ OkHttp 相较于其它的实现有以下的优点.
 
 
 支持SPDY，允许连接同一主机的所有请求">
-<meta property="og:updated_time" content="2015-08-17T13:02:29.000Z">
+<meta property="og:updated_time" content="2015-08-17T13:15:18.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android 网络: Volley+OkHttp+Https ">
 <meta name="twitter:description" content="使用 OkHttp 作为传输层的实现完整的代码实现Volley 默认根据 Android 系统版本使用不同的 Http 传输协议实现.在 Android 3.0 以上 Volley 使用 ApacheHttpStack 作为传输协议, 在2.3 及以下使用 HttpURLConnection 作为传输层协议
@@ -165,16 +165,18 @@ return connection;
 </li>
 </ul>
 <p><br>5.然后用 SelfSignSslOkHttpStack 创建 Volley 的 RequestQueue.</p>
-<p><pre><code>String[] hosts = {“kyfw.12306.cn”};<br> int[] certRes = {R.raw.kyfw};<br> String[] certPass = {“asdfqaz”};<br> socketFactoryMap = new Hashtable&lt;&gt;(hosts.length);</code></pre></p>
+<p><pre><code></code></pre></p>
+<p>String[] hosts = {“kyfw.12306.cn”};<br> int[] certRes = {R.raw.kyfw};<br> String[] certPass = {“asdfqaz”};<br> socketFactoryMap = new Hashtable&lt;&gt;(hosts.length);</p>
 <p> for (int i = 0; i &lt; certRes.length; i++) {<br>     int res = certRes[i];<br>     String password = certPass[i];<br>     SSLSocketFactory sslSocketFactory = createSSLSocketFactory(context, res, password);<br>     socketFactoryMap.put(hosts[i], sslSocketFactory);<br> }</p>
 <p> HurlStack stack = new SelfSignSslOkHttpStack(socketFactoryMap);</p>
-<p> requestQueue = Volley.newRequestQueue(context, stack);<br> requestQueue.start(); <br>6.done</p>
+<p> requestQueue = Volley.newRequestQueue(context, stack);<br> requestQueue.start(); </p>
+<p> <br>6.done</p>
 <p><a href="http://www.jianshu.com/p/e58161cbc3a4" target="_blank" rel="external">原文地址</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/chaimingkun/chaimingkun.github.io.git/2015/08/14/Android-网络-Volley-OkHttp-Https/" data-id="cidfxlxb20000vhbwx2cdf8ca" class="article-share-link">Share</a>
+      <a data-url="https://github.com/chaimingkun/chaimingkun.github.io.git/2015/08/14/Android-网络-Volley-OkHttp-Https/" data-id="cidfy28e40000wkbw09z3rc51" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/volley-okhttp-Android/">volley okhttp Android</a></li></ul>

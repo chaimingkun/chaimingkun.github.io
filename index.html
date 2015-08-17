@@ -154,16 +154,18 @@ return connection;
 </li>
 </ul>
 <p><br>5.然后用 SelfSignSslOkHttpStack 创建 Volley 的 RequestQueue.</p>
-<p><pre><code>String[] hosts = {“kyfw.12306.cn”};<br> int[] certRes = {R.raw.kyfw};<br> String[] certPass = {“asdfqaz”};<br> socketFactoryMap = new Hashtable&lt;&gt;(hosts.length);</code></pre></p>
+<p><pre><code></code></pre></p>
+<p>String[] hosts = {“kyfw.12306.cn”};<br> int[] certRes = {R.raw.kyfw};<br> String[] certPass = {“asdfqaz”};<br> socketFactoryMap = new Hashtable&lt;&gt;(hosts.length);</p>
 <p> for (int i = 0; i &lt; certRes.length; i++) {<br>     int res = certRes[i];<br>     String password = certPass[i];<br>     SSLSocketFactory sslSocketFactory = createSSLSocketFactory(context, res, password);<br>     socketFactoryMap.put(hosts[i], sslSocketFactory);<br> }</p>
 <p> HurlStack stack = new SelfSignSslOkHttpStack(socketFactoryMap);</p>
-<p> requestQueue = Volley.newRequestQueue(context, stack);<br> requestQueue.start(); <br>6.done</p>
+<p> requestQueue = Volley.newRequestQueue(context, stack);<br> requestQueue.start(); </p>
+<p> <br>6.done</p>
 <p><a href="http://www.jianshu.com/p/e58161cbc3a4" target="_blank" rel="external">原文地址</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/chaimingkun/chaimingkun.github.io.git/2015/08/14/Android-网络-Volley-OkHttp-Https/" data-id="cidfxlxb20000vhbwx2cdf8ca" class="article-share-link">Share</a>
+      <a data-url="https://github.com/chaimingkun/chaimingkun.github.io.git/2015/08/14/Android-网络-Volley-OkHttp-Https/" data-id="cidfy28e40000wkbw09z3rc51" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/volley-okhttp-Android/">volley okhttp Android</a></li></ul>
@@ -266,7 +268,7 @@ return connection;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/chaimingkun/chaimingkun.github.io.git/2015/08/12/社交产品后端架构设计/" data-id="cidfxlxc60006vhbwnu4g83pb" class="article-share-link">Share</a>
+      <a data-url="https://github.com/chaimingkun/chaimingkun.github.io.git/2015/08/12/社交产品后端架构设计/" data-id="cidfy28f00006wkbwpntqako0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/社交-后端-架构/">社交 后端 架构</a></li></ul>
@@ -314,7 +316,7 @@ return connection;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/chaimingkun/chaimingkun.github.io.git/2015/08/11/说说我的这次创业历程/" data-id="cidfxlxby0003vhbw1hd8eu2c" class="article-share-link">Share</a>
+      <a data-url="https://github.com/chaimingkun/chaimingkun.github.io.git/2015/08/11/说说我的这次创业历程/" data-id="cidfy28er0003wkbwai55ndez" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/创业/">创业</a></li></ul>
@@ -354,7 +356,7 @@ return connection;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/chaimingkun/chaimingkun.github.io.git/2015/08/11/为什么重新建立一个blog/" data-id="cidfxlxc80009vhbwz1tgz9cn" class="article-share-link">Share</a>
+      <a data-url="https://github.com/chaimingkun/chaimingkun.github.io.git/2015/08/11/为什么重新建立一个blog/" data-id="cidfy28f10009wkbwbxbl2wgi" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li></ul>
