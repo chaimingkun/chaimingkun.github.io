@@ -8,8 +8,7 @@
   <meta name="description" content="使用 OkHttp 作为传输层的实现完整的代码实现Volley 默认根据 Android 系统版本使用不同的 Http 传输协议实现.在 Android 3.0 以上 Volley 使用 ApacheHttpStack 作为传输协议, 在2.3 及以下使用 HttpURLConnection 作为传输层协议
 OkHttp 相较于其它的实现有以下的优点.
 
-
-支持SPDY，允许连接同一主机的所有请求">
+支持SPDY，允许连接同一主机的所有请求分">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android 网络: Volley+OkHttp+Https ">
 <meta property="og:url" content="https://github.com/chaimingkun/chaimingkun.github.io.git/2015/08/14/Android-网络-Volley-OkHttp-Https/index.html">
@@ -17,16 +16,14 @@ OkHttp 相较于其它的实现有以下的优点.
 <meta property="og:description" content="使用 OkHttp 作为传输层的实现完整的代码实现Volley 默认根据 Android 系统版本使用不同的 Http 传输协议实现.在 Android 3.0 以上 Volley 使用 ApacheHttpStack 作为传输协议, 在2.3 及以下使用 HttpURLConnection 作为传输层协议
 OkHttp 相较于其它的实现有以下的优点.
 
-
-支持SPDY，允许连接同一主机的所有请求">
-<meta property="og:updated_time" content="2015-08-17T13:15:18.000Z">
+支持SPDY，允许连接同一主机的所有请求分">
+<meta property="og:updated_time" content="2015-08-17T13:19:22.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android 网络: Volley+OkHttp+Https ">
 <meta name="twitter:description" content="使用 OkHttp 作为传输层的实现完整的代码实现Volley 默认根据 Android 系统版本使用不同的 Http 传输协议实现.在 Android 3.0 以上 Volley 使用 ApacheHttpStack 作为传输协议, 在2.3 及以下使用 HttpURLConnection 作为传输层协议
 OkHttp 相较于其它的实现有以下的优点.
 
-
-支持SPDY，允许连接同一主机的所有请求">
+支持SPDY，允许连接同一主机的所有请求分">
   
     <link rel="alternative" href="/atom.xml" title="chai&#39;s blog" type="application/atom+xml">
   
@@ -100,7 +97,6 @@ OkHttp 相较于其它的实现有以下的优点.
       
         <h2 id="使用_OkHttp_作为传输层的实现">使用 OkHttp 作为传输层的实现</h2><h3 id="完整的代码实现"><a href="https://github.com/dodocat/AndroidNetworkdemo">完整的代码实现</a></h3><p>Volley 默认根据 Android 系统版本使用不同的 Http 传输协议实现.<br>在 Android 3.0 以上 Volley 使用 ApacheHttpStack 作为传输协议, 在2.3 及以下使用 HttpURLConnection 作为传输层协议</p>
 <p>OkHttp 相较于其它的实现有以下的优点.</p>
-<blockquote>
 <ul>
 <li>支持SPDY，允许连接同一主机的所有请求分享一个socket。</li>
 <li>如果SPDY不可用，会使用连接池减少请求延迟。</li>
@@ -109,7 +105,6 @@ OkHttp 相较于其它的实现有以下的优点.
 <li>当网络出现问题的时候，OKHttp会依然有效，它将从常见的连接问题当中恢复。</li>
 <li>如果你的服务端有多个IP地址，当第一个地址连接失败时，OKHttp会尝试连接其他的地址，这对IPV4和IPV6以及寄宿在多个数据中心的服务而言，是非常有必要的。</li>
 </ul>
-</blockquote>
 <p>因此使用 OkHttp 作为替代是好的选择.</p>
 <p>1.首先用 OkHttp 实现一个新的 HurlStack 用于构建 Volley 的requestQueue.</p>
 <p><pre><code><br>public class OkHttpStack extends HurlStack {</code></pre></p>
@@ -176,7 +171,7 @@ return connection;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/chaimingkun/chaimingkun.github.io.git/2015/08/14/Android-网络-Volley-OkHttp-Https/" data-id="cidfy28e40000wkbw09z3rc51" class="article-share-link">Share</a>
+      <a data-url="https://github.com/chaimingkun/chaimingkun.github.io.git/2015/08/14/Android-网络-Volley-OkHttp-Https/" data-id="cidfy7dmm0000xdbwzkauvjo4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/volley-okhttp-Android/">volley okhttp Android</a></li></ul>
