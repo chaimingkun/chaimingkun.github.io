@@ -30,7 +30,7 @@
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
 			
-			<img lazy-src="http://litten.github.io/assets/blogImg/litten.png" class="js-avatar">
+			<img lazy-src="http://7xip2o.com1.z0.glb.clouddn.com/chai.jpg" class="js-avatar">
 			
 		</a>
 
@@ -160,7 +160,7 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img lazy-src="http://litten.github.io/assets/blogImg/litten.png" class="js-avatar">
+				<img lazy-src="http://7xip2o.com1.z0.glb.clouddn.com/chai.jpg" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author">chai</h1>
@@ -370,7 +370,7 @@
 <h2 id="组件">组件</h2><p>以下是我们架构用到的组件:</p>
 <p>负载均衡器：这层是用来转发所有对代理服务器的请求，基于定制的策略。这一层也将有助于我们通过基于容量重定向的方式来保障可用性。<br>代理服务器：所有即将到来的调用都必须以这里为入口。这也是我们SSL的终止点。它缓存所有基于策略定义的HTTP请求。FE层：该层运行一个node服务器。<br>数据输入引擎：这个组件涉及所有内容的输入，它做了一系列的工作:非规范化模型，转码，缓存等。将来如果可以的话，所有内容的处理，都可以在这里完成。<br>Rest服务：这层负责与所有DB交互，并返回数据。它的访问是受OAuth保护的。这可以用Tomcat容器以及edge缓存来实现。<br>事件处理：这层处理所有的事件，主要负责分发的功能。它读取ActiveMQ并使用通知引擎生成通知。<br>推荐引擎：这个组件通过分析所有收集到的用户动态来做推荐。根据实际收集到的动态，我们可以部署各种基于亲和力的算法。我们可以使用Apache Mahout提供的各种算法接口</p>
 <p>系统的逻辑视图：</p>
-<p><img src="http://mmbiz.qpic.cn/mmbiz/Pn4Sm0RsAugricq4n09dUUdxJtyAQtCicgFW7tU2fFdXZM7zAPFOet0kyxqA5r5xJGJWYtH4598JNz6cfibnsqq4A/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1" alt="logic"></p>
+<p><img src="http://7xip2o.com1.z0.glb.clouddn.com/社交后台架构.png" alt="logic"></p>
 <h2 id="结语">结语</h2><p>本篇文章更像是对关键组件高抽象层次的分析。如果需要实施的建议，可以做一个阶段性的方式，但如果我们需要扩展性并支持真正的用例，必须遵循我提出的这些规范。我没有提起任何设计领域相关的内容。这只是设计阶段，需要更深入的分析和了解系统的当前状态。</p>
 <p>原文链接：<a href="http://highscalability.com/blog/2015/7/22/architecting-backend-for-a-social-product.html" target="_blank" rel="external">Architecting Backend For A Social Product</a></p>
 
