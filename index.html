@@ -101,7 +101,7 @@
 </blockquote>
 <p>因此使用 OkHttp 作为替代是好的选择.</p>
 <p>1.首先用 OkHttp 实现一个新的 HurlStack 用于构建 Volley 的requestQueue.</p>
-<p><pre><code>public class OkHttpStack extends HurlStack {</code></pre></p>
+<p><pre><code><br>public class OkHttpStack extends HurlStack {</code></pre></p>
 <p> private OkHttpClient okHttpClient;</p>
 <p> /**</p>
 <ul>
@@ -109,10 +109,11 @@
 <p>/**</p>
 </li>
 <li>Create a OkHttpStack with a custom OkHttpClient</li>
-<li><p>@param okHttpClient Custom OkHttpClient, NonNull<br>*/<br>public OkHttpStack(OkHttpClient okHttpClient) {<br> this.okHttpClient = okHttpClient;<br>}</p>
-<p>@Override<br>protected HttpURLConnection createConnection(URL url) throws IOException {<br> OkUrlFactory okUrlFactory = new OkUrlFactory(okHttpClient);<br> return okUrlFactory.open(url);<br>}<br>}<br>2.然后使用 OkHttpStack 创建新的 Volley requestQueue.<br><pre><code>requestQueue = Volley.newRequestQueue(getContext(), new OkHttpStack());<br>requestQueue.start();</code></pre><br>作为一个有节操的开发者应该使用 Https 来保护用户的数据, Android 开发者网站上文章<a href="https://developer.android.com/training/articles/security-ssl.html" target="_blank" rel="external">Security with HTTPS and SSL</a>做了详尽的阐述.</p>
-</li>
+<li>@param okHttpClient Custom OkHttpClient, NonNull<br>*/<br>public OkHttpStack(OkHttpClient okHttpClient) {<br> this.okHttpClient = okHttpClient;<br>}</li>
 </ul>
+<p>@Override<br> protected HttpURLConnection createConnection(URL url) throws IOException {<br>     OkUrlFactory okUrlFactory = new OkUrlFactory(okHttpClient);<br>     return okUrlFactory.open(url);<br> }<br>}</p>
+<p><br>2.然后使用 OkHttpStack 创建新的 Volley requestQueue.</p>
+<p><pre><code>requestQueue = Volley.newRequestQueue(getContext(), new OkHttpStack());<br>requestQueue.start();</code></pre><br>作为一个有节操的开发者应该使用 Https 来保护用户的数据, Android 开发者网站上文章<a href="https://developer.android.com/training/articles/security-ssl.html" target="_blank" rel="external">Security with HTTPS and SSL</a>做了详尽的阐述.</p>
 <p>OkHttp 自身是支持 Https 的. 参考文档 <a href="https://github.com/square/okhttp/wiki/HTTPS">OkHttp Https</a>, 直接使用上面的 OkHttpStack 就可以了, 但是如果遇到服务器开发哥哥使用了自签名的证书(不要问我为什么要用自签名的), 就无法正常访问了.</p>
 <p>网上有很多文章给出的方案是提供一个什么事情都不做的TrustManager 跳过 SSL 的验证, 这样做很容受到攻击, Https 也就形同虚设了.</p>
 <p>我采用的方案是将自签名的证书打包入 APK 加入信任.</p>
@@ -149,18 +150,20 @@ connection.setSSLSocketFactory<span class="params">(socketFactoryMap.get<span cl
 return connection;
 </code></pre><p>   } else {</p>
 <pre><code><span class="keyword">return</span>  <span class="keyword">new</span> OkUrlFactory(okHttpClient).<span class="keyword">open</span>(url);
-</code></pre><p>   }<br>}<br>} <br>5.然后用 SelfSignSslOkHttpStack 创建 Volley 的 RequestQueue.<br><pre><code>String[] hosts = {“kyfw.12306.cn”};<br>int[] certRes = {R.raw.kyfw};<br>String[] certPass = {“asdfqaz”};<br>socketFactoryMap = new Hashtable&lt;&gt;(hosts.length);</code></pre></p>
-<p>for (int i = 0; i &lt; certRes.length; i++) {<br>   int res = certRes[i];<br>   String password = certPass[i];<br>   SSLSocketFactory sslSocketFactory = createSSLSocketFactory(context, res, password);<br>   socketFactoryMap.put(hosts[i], sslSocketFactory);<br>}</p>
-<p>HurlStack stack = new SelfSignSslOkHttpStack(socketFactoryMap);</p>
-<p>requestQueue = Volley.newRequestQueue(context, stack);<br>requestQueue.start(); <br>6.done</p>
+</code></pre><p>   }<br>}<br>} </p>
 </li>
 </ul>
+<p><br>5.然后用 SelfSignSslOkHttpStack 创建 Volley 的 RequestQueue.</p>
+<p><pre><code>String[] hosts = {“kyfw.12306.cn”};<br> int[] certRes = {R.raw.kyfw};<br> String[] certPass = {“asdfqaz”};<br> socketFactoryMap = new Hashtable&lt;&gt;(hosts.length);</code></pre></p>
+<p> for (int i = 0; i &lt; certRes.length; i++) {<br>     int res = certRes[i];<br>     String password = certPass[i];<br>     SSLSocketFactory sslSocketFactory = createSSLSocketFactory(context, res, password);<br>     socketFactoryMap.put(hosts[i], sslSocketFactory);<br> }</p>
+<p> HurlStack stack = new SelfSignSslOkHttpStack(socketFactoryMap);</p>
+<p> requestQueue = Volley.newRequestQueue(context, stack);<br> requestQueue.start(); <br>6.done</p>
 <p><a href="http://www.jianshu.com/p/e58161cbc3a4" target="_blank" rel="external">原文地址</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/chaimingkun/chaimingkun.github.io.git/2015/08/14/Android-网络-Volley-OkHttp-Https/" data-id="cidffaxk20000d8bwjylhqvm7" class="article-share-link">Share</a>
+      <a data-url="https://github.com/chaimingkun/chaimingkun.github.io.git/2015/08/14/Android-网络-Volley-OkHttp-Https/" data-id="cidfxlxb20000vhbwx2cdf8ca" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/volley-okhttp-Android/">volley okhttp Android</a></li></ul>
@@ -263,7 +266,7 @@ return connection;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/chaimingkun/chaimingkun.github.io.git/2015/08/12/社交产品后端架构设计/" data-id="cidffaxl00006d8bw63hlrto2" class="article-share-link">Share</a>
+      <a data-url="https://github.com/chaimingkun/chaimingkun.github.io.git/2015/08/12/社交产品后端架构设计/" data-id="cidfxlxc60006vhbwnu4g83pb" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/社交-后端-架构/">社交 后端 架构</a></li></ul>
@@ -311,7 +314,7 @@ return connection;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/chaimingkun/chaimingkun.github.io.git/2015/08/11/说说我的这次创业历程/" data-id="cidffaxkn0003d8bw189a7nfr" class="article-share-link">Share</a>
+      <a data-url="https://github.com/chaimingkun/chaimingkun.github.io.git/2015/08/11/说说我的这次创业历程/" data-id="cidfxlxby0003vhbw1hd8eu2c" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/创业/">创业</a></li></ul>
@@ -351,7 +354,7 @@ return connection;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/chaimingkun/chaimingkun.github.io.git/2015/08/11/为什么重新建立一个blog/" data-id="cidffaxl20009d8bwjxjiy0fu" class="article-share-link">Share</a>
+      <a data-url="https://github.com/chaimingkun/chaimingkun.github.io.git/2015/08/11/为什么重新建立一个blog/" data-id="cidfxlxc80009vhbwz1tgz9cn" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li></ul>
