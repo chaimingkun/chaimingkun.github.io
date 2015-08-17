@@ -17,7 +17,7 @@ OkHttp 相较于其它的实现有以下的优点.
 OkHttp 相较于其它的实现有以下的优点.
 
 支持SPDY，允许连接同一主机的所有请求分">
-<meta property="og:updated_time" content="2015-08-17T13:19:22.000Z">
+<meta property="og:updated_time" content="2015-08-17T13:31:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android 网络: Volley+OkHttp+Https ">
 <meta name="twitter:description" content="使用 OkHttp 作为传输层的实现完整的代码实现Volley 默认根据 Android 系统版本使用不同的 Http 传输协议实现.在 Android 3.0 以上 Volley 使用 ApacheHttpStack 作为传输协议, 在2.3 及以下使用 HttpURLConnection 作为传输层协议
@@ -107,71 +107,31 @@ OkHttp 相较于其它的实现有以下的优点.
 </ul>
 <p>因此使用 OkHttp 作为替代是好的选择.</p>
 <p>1.首先用 OkHttp 实现一个新的 HurlStack 用于构建 Volley 的requestQueue.</p>
-<p><pre><code><br>public class OkHttpStack extends HurlStack {</code></pre></p>
-<p> private OkHttpClient okHttpClient;</p>
-<p> /**</p>
-<ul>
-<li><p>Create a OkHttpStack with default OkHttpClient.<br>*/<br>public OkHttpStack() {<br> this(new OkHttpClient());<br>}</p>
-<p>/**</p>
-</li>
-<li>Create a OkHttpStack with a custom OkHttpClient</li>
-<li>@param okHttpClient Custom OkHttpClient, NonNull<br>*/<br>public OkHttpStack(OkHttpClient okHttpClient) {<br> this.okHttpClient = okHttpClient;<br>}</li>
-</ul>
-<p>@Override<br> protected HttpURLConnection createConnection(URL url) throws IOException {<br>     OkUrlFactory okUrlFactory = new OkUrlFactory(okHttpClient);<br>     return okUrlFactory.open(url);<br> }<br>}</p>
-<p><br>2.然后使用 OkHttpStack 创建新的 Volley requestQueue.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OkHttpStack</span> <span class="keyword">extends</span> <span class="title">HurlStack</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">private</span> OkHttpClient okHttpClient;</span><br><span class="line"></span><br><span class="line"> <span class="comment">/**</span><br><span class="line">  * Create a OkHttpStack with default OkHttpClient.</span><br><span class="line">  */</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="title">OkHttpStack</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     <span class="keyword">this</span>(<span class="keyword">new</span> OkHttpClient());</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">/**</span><br><span class="line">  * Create a OkHttpStack with a custom OkHttpClient</span><br><span class="line">  * <span class="doctag">@param</span> okHttpClient Custom OkHttpClient, NonNull</span><br><span class="line">  */</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="title">OkHttpStack</span><span class="params">(OkHttpClient okHttpClient)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">this</span>.okHttpClient = okHttpClient;</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"><span class="annotation">@Override</span></span><br><span class="line"> <span class="function"><span class="keyword">protected</span> HttpURLConnection <span class="title">createConnection</span><span class="params">(URL url)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">     OkUrlFactory okUrlFactory = <span class="keyword">new</span> OkUrlFactory(okHttpClient);</span><br><span class="line">     <span class="keyword">return</span> okUrlFactory.open(url);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2.然后使用 OkHttpStack 创建新的 Volley requestQueue.</p>
 <p><pre><code>requestQueue = Volley.newRequestQueue(getContext(), new OkHttpStack());<br>requestQueue.start();</code></pre><br>作为一个有节操的开发者应该使用 Https 来保护用户的数据, Android 开发者网站上文章<a href="https://developer.android.com/training/articles/security-ssl.html" target="_blank" rel="external">Security with HTTPS and SSL</a>做了详尽的阐述.</p>
 <p>OkHttp 自身是支持 Https 的. 参考文档 <a href="https://github.com/square/okhttp/wiki/HTTPS">OkHttp Https</a>, 直接使用上面的 OkHttpStack 就可以了, 但是如果遇到服务器开发哥哥使用了自签名的证书(不要问我为什么要用自签名的), 就无法正常访问了.</p>
 <p>网上有很多文章给出的方案是提供一个什么事情都不做的TrustManager 跳过 SSL 的验证, 这样做很容受到攻击, Https 也就形同虚设了.</p>
 <p>我采用的方案是将自签名的证书打包入 APK 加入信任.</p>
 <p>好处:</p>
-<blockquote>
 <ul>
 <li>应用难以逆向, 应用不再依赖系统的 trust store, 使得 Charles 抓包等工具失效. 要分析应用 API 必须反编译 APK.</li>
 <li>不用额外购买证书, 省钱….</li>
 </ul>
-</blockquote>
 <p>##实现步骤</p>
 <p>以最著名的自签名网站12306为例说明</p>
 <p>1.导出证书</p>
 <p><pre><code><br> echo | openssl s_client -connect kyfw.12306.cn:443 2&gt;&amp;1 |  sed -ne ‘/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p’ &gt; kyfw.12306.cn.pem<br> </code></pre><br>2.将证书转为 bks 格式<br>下载最新的bcprov-jdk, 执行下面的命令. storepass 是导出密钥文件的密码.</p>
 <p><pre><code><br>keytool -importcert -v \<br> -trustcacerts \<br> -alias 0 \<br> -file &lt;(openssl x509 -in kyfw.12306.cn.pem) \<br> -keystore $CERTSTORE -storetype BKS \<br> -providerclass org.bouncycastle.jce.provider.BouncyCastleProvider \<br> -providerpath ./bcprov-jdk16-1.46.jar \<br> -storepass asdfqaz </code></pre><br> 3.将导出的 kyfw.bks 文件放入 res/raw 文件夹下.</p>
-<p>4.创建 SelfSignSslOkHttpStack</p>
-<p><pre><code>/**</code></pre></p>
-<ul>
-<li><p>A HttpStack implement witch can verify specified self-signed certification.<br>*/<br>public class SelfSignSslOkHttpStack extends HurlStack {</p>
-<p>private OkHttpClient okHttpClient;</p>
-<p>private Map<string, sslsocketfactory=""> socketFactoryMap;</string,></p>
-<p>/**</p>
-<ul>
-<li>Create a OkHttpStack with default OkHttpClient.<br>*/<br>public SelfSignSslOkHttpStack(Map<string, sslsocketfactory=""> factoryMap) {<br> this(new OkHttpClient(), factoryMap);<br>}</string,></li>
-</ul>
-<p>/**</p>
-<ul>
-<li>Create a OkHttpStack with a custom OkHttpClient</li>
-<li>@param okHttpClient Custom OkHttpClient, NonNull<br>*/<br>public SelfSignSslOkHttpStack(OkHttpClient okHttpClient, Map<string, sslsocketfactory=""> factoryMap) {<br> this.okHttpClient = okHttpClient;<br> this.socketFactoryMap = factoryMap;<br>}</string,></li>
-</ul>
-<p>@Override<br>protected HttpURLConnection createConnection(URL url) throws IOException {<br>   if (“https”.equals(url.getProtocol()) &amp;&amp; socketFactoryMap.containsKey(url.getHost())) {</p>
-<pre><code>HttpsURLConnection connection = <span class="params">(HttpsURLConnection)</span> new OkUrlFactory<span class="params">(okHttpClient)</span>.open<span class="params">(url)</span>;
-connection.setSSLSocketFactory<span class="params">(socketFactoryMap.get<span class="params">(url.getHost<span class="params">()</span>)</span>)</span>;
-return connection;
-</code></pre><p>   } else {</p>
-<pre><code><span class="keyword">return</span>  <span class="keyword">new</span> OkUrlFactory(okHttpClient).<span class="keyword">open</span>(url);
-</code></pre><p>   }<br>}<br>} </p>
-</li>
-</ul>
-<p><br>5.然后用 SelfSignSslOkHttpStack 创建 Volley 的 RequestQueue.</p>
-<p><pre><code></code></pre></p>
-<p>String[] hosts = {“kyfw.12306.cn”};<br> int[] certRes = {R.raw.kyfw};<br> String[] certPass = {“asdfqaz”};<br> socketFactoryMap = new Hashtable&lt;&gt;(hosts.length);</p>
-<p> for (int i = 0; i &lt; certRes.length; i++) {<br>     int res = certRes[i];<br>     String password = certPass[i];<br>     SSLSocketFactory sslSocketFactory = createSSLSocketFactory(context, res, password);<br>     socketFactoryMap.put(hosts[i], sslSocketFactory);<br> }</p>
-<p> HurlStack stack = new SelfSignSslOkHttpStack(socketFactoryMap);</p>
-<p> requestQueue = Volley.newRequestQueue(context, stack);<br> requestQueue.start(); </p>
-<p> <br>6.done</p>
+<p>4.创建 SelfSignSslOkHttpStack<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line">* A HttpStack implement witch can verify specified self-signed certification.</span><br><span class="line">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SelfSignSslOkHttpStack</span> <span class="keyword">extends</span> <span class="title">HurlStack</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">private</span> OkHttpClient okHttpClient;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">private</span> Map&lt;String, SSLSocketFactory&gt; socketFactoryMap;</span><br><span class="line"></span><br><span class="line"> <span class="comment">/**</span><br><span class="line">  * Create a OkHttpStack with default OkHttpClient.</span><br><span class="line">  */</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="title">SelfSignSslOkHttpStack</span><span class="params">(Map&lt;String, SSLSocketFactory&gt; factoryMap)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">this</span>(<span class="keyword">new</span> OkHttpClient(), factoryMap);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">/**</span><br><span class="line">  * Create a OkHttpStack with a custom OkHttpClient</span><br><span class="line">  * <span class="doctag">@param</span> okHttpClient Custom OkHttpClient, NonNull</span><br><span class="line">  */</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="title">SelfSignSslOkHttpStack</span><span class="params">(OkHttpClient okHttpClient, Map&lt;String, SSLSocketFactory&gt; factoryMap)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">this</span>.okHttpClient = okHttpClient;</span><br><span class="line">     <span class="keyword">this</span>.socketFactoryMap = factoryMap;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="annotation">@Override</span></span><br><span class="line"> <span class="function"><span class="keyword">protected</span> HttpURLConnection <span class="title">createConnection</span><span class="params">(URL url)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">     <span class="keyword">if</span> (<span class="string">"https"</span>.equals(url.getProtocol()) &amp;&amp; socketFactoryMap.containsKey(url.getHost())) &#123;</span><br><span class="line">         HttpsURLConnection connection = (HttpsURLConnection) <span class="keyword">new</span> OkUrlFactory(okHttpClient).open(url);</span><br><span class="line">         connection.setSSLSocketFactory(socketFactoryMap.get(url.getHost()));</span><br><span class="line">         <span class="keyword">return</span> connection;</span><br><span class="line">     &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">         <span class="keyword">return</span>  <span class="keyword">new</span> OkUrlFactory(okHttpClient).open(url);</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>5.然后用 SelfSignSslOkHttpStack 创建 Volley 的 RequestQueue.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">String[] hosts = &#123;<span class="string">"kyfw.12306.cn"</span>&#125;;</span><br><span class="line"> <span class="keyword">int</span>[] certRes = &#123;R.raw.kyfw&#125;;</span><br><span class="line"> String[] certPass = &#123;<span class="string">"asdfqaz"</span>&#125;;</span><br><span class="line"> socketFactoryMap = <span class="keyword">new</span> Hashtable&lt;&gt;(hosts.length);</span><br><span class="line"></span><br><span class="line"> <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; certRes.length; i++) &#123;</span><br><span class="line">     <span class="keyword">int</span> res = certRes[i];</span><br><span class="line">     String password = certPass[i];</span><br><span class="line">     SSLSocketFactory sslSocketFactory = createSSLSocketFactory(context, res, password);</span><br><span class="line">     socketFactoryMap.put(hosts[i], sslSocketFactory);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> HurlStack stack = <span class="keyword">new</span> SelfSignSslOkHttpStack(socketFactoryMap);</span><br><span class="line"></span><br><span class="line"> requestQueue = Volley.newRequestQueue(context, stack);</span><br><span class="line"> requestQueue.start();</span><br></pre></td></tr></table></figure></p>
+<p>6.done</p>
 <p><a href="http://www.jianshu.com/p/e58161cbc3a4" target="_blank" rel="external">原文地址</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/chaimingkun/chaimingkun.github.io.git/2015/08/14/Android-网络-Volley-OkHttp-Https/" data-id="cidfy7dmm0000xdbwzkauvjo4" class="article-share-link">Share</a>
+      <a data-url="https://github.com/chaimingkun/chaimingkun.github.io.git/2015/08/14/Android-网络-Volley-OkHttp-Https/" data-id="cidfyd5sl0000xvbw9am2tlxy" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/volley-okhttp-Android/">volley okhttp Android</a></li></ul>
