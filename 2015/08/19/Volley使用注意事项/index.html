@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Volley使用注意事项 | chai&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="volley出来之后，陆续的出来很多博客讲解volley的使用方法，大多数的讲解仅仅是停留着用的角度上，并没有根据volley的源码来具体情况来具体分析，这就导致很多技术能力稍弱的朋友模仿出来后反而导致应用的性能降低。那么本文就根据volley源码来分析，vollly如何使用才是最合适的。
+volley+okhttp是很好的搭配，okhttp可以说是对大多数人熟知，如果不了解，自行搜索okhttp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Volley使用注意事项">
+<meta property="og:url" content="https://github.com/chaimingkun/chaimingkun.github.io.git/2015/08/19/Volley使用注意事项/index.html">
+<meta property="og:site_name" content="chai's blog">
+<meta property="og:description" content="volley出来之后，陆续的出来很多博客讲解volley的使用方法，大多数的讲解仅仅是停留着用的角度上，并没有根据volley的源码来具体情况来具体分析，这就导致很多技术能力稍弱的朋友模仿出来后反而导致应用的性能降低。那么本文就根据volley源码来分析，vollly如何使用才是最合适的。
+volley+okhttp是很好的搭配，okhttp可以说是对大多数人熟知，如果不了解，自行搜索okhttp">
+<meta property="og:updated_time" content="2015-08-18T14:15:19.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Volley使用注意事项">
+<meta name="twitter:description" content="volley出来之后，陆续的出来很多博客讲解volley的使用方法，大多数的讲解仅仅是停留着用的角度上，并没有根据volley的源码来具体情况来具体分析，这就导致很多技术能力稍弱的朋友模仿出来后反而导致应用的性能降低。那么本文就根据volley源码来分析，vollly如何使用才是最合适的。
+volley+okhttp是很好的搭配，okhttp可以说是对大多数人熟知，如果不了解，自行搜索okhttp">
+  
+    <link rel="alternative" href="/atom.xml" title="chai&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="http://7xip2o.com1.z0.glb.clouddn.com/chai.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">chai</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">welcome</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="/#" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="/#" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Volley-注意事项/" style="font-size: 10px;">Volley 注意事项</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/volley-okhttp-Android/" style="font-size: 10px;">volley okhttp Android</a> <a href="/tags/创业/" style="font-size: 10px;">创业</a> <a href="/tags/社交-后端-架构/" style="font-size: 10px;">社交 后端 架构</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">奥巴马的博客</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">卡卡的美丽传说</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">本泽马的博客</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">吉格斯的博客</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">习大大大不同</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">托蒂的博客</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">我是谁，我从哪里来，我到哪里去？我就是我，是颜色不一样的吃货…</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">chai</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="http://7xip2o.com1.z0.glb.clouddn.com/chai.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">chai</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">welcome</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="/#" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="/#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-Volley使用注意事项" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/08/19/Volley使用注意事项/" class="article-date">
+  	<time datetime="2015-08-18T20:07:42.000Z" itemprop="datePublished">2015-08-18</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Volley使用注意事项
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Volley-注意事项/">Volley 注意事项</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>volley出来之后，陆续的出来很多博客讲解volley的使用方法，大多数的讲解仅仅是停留着用的角度上，并没有根据volley的源码来具体情况来具体分析，这就导致很多技术能力稍弱的朋友模仿出来后反而导致应用的性能降低。那么本文就根据volley源码来分析，vollly如何使用才是最合适的。</p>
+<p>volley+okhttp是很好的搭配，okhttp可以说是对大多数人熟知，如果不了解，自行搜索okhttp的强大之处，总之就是okhttp比httpclient、URLConnection牛逼，如果不知道两者之间如何搭配可以看一下我写的<a href="https://github.com/chaimingkun/volleyOkhttp">demo</a>（该demo还包含了volley应该如何使用）以及我的blog<a href="http://chaimingkun.github.io/2015/08/14/Android-%E7%BD%91%E7%BB%9C-Volley-OkHttp-Https/" target="_blank" rel="external">Android 网络: Volley+OkHttp+Https</a>。</p>
+<h3 id="volley_加载图片模块可以替代强大的网络框架吗？">volley 加载图片模块可以替代强大的网络框架吗？</h3><p>现在最强大且最常用的网络框架有哪些？</p>
+<ul>
+<li>Picasso</li>
+<li>ImageLoader</li>
+<li>Glide</li>
+<li>Fresco 这是facebook出品的一个强大图片框架</li>
+</ul>
+<p>那么问题来了，volley的图片加载能否代替这些框架？<br>那么我们看看volley是如何加载一张图片的：<br> 大家应该都知道Volley中的ImageLoader其实就是加强版的ImageRequest,ImageLoader的构造函数需要传入一个实现了ImageCache 的一个LruCache(官方建议)，那么显而易见，我们 就应该从这个ImageLoader入手了。</p>
+<p>ImageLoader的构造方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> *传入RequestQueue对象及实现了实现了ImageCache *的一个LruCache</span><br><span class="line">*/</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ImageLoader</span><span class="params">(RequestQueue queue, ImageCache imageCache)</span> </span>&#123;</span><br><span class="line">        mRequestQueue = queue;</span><br><span class="line">        mCache = imageCache;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>ImageLoader加载图片的方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> *</span><br><span class="line"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> ImageContainer <span class="title">get</span><span class="params">(String requestUrl, ImageListener imageListener,</span><br><span class="line">        <span class="keyword">int</span> maxWidth, <span class="keyword">int</span> maxHeight, ScaleType scaleType)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 判断是否是在主线程调用，如果不是抛异常</span></span><br><span class="line">    throwIfNotOnMainThread();</span><br><span class="line">    <span class="comment">//得到改图片请求的key</span></span><br><span class="line">    <span class="keyword">final</span> String cacheKey = getCacheKey(requestUrl, maxWidth, maxHeight, scaleType);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 检查在缓存中是否含有该图片如果有则直接返回该图片</span></span><br><span class="line">    Bitmap cachedBitmap = mCache.getBitmap(cacheKey);</span><br><span class="line">    <span class="keyword">if</span> (cachedBitmap != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="comment">// Return the cached bitmap.</span></span><br><span class="line">        ImageContainer container = <span class="keyword">new</span> ImageContainer(cachedBitmap, requestUrl, <span class="keyword">null</span>, <span class="keyword">null</span>);</span><br><span class="line">        imageListener.onResponse(container, <span class="keyword">true</span>);</span><br><span class="line">        <span class="keyword">return</span> container;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    ImageContainer imageContainer =</span><br><span class="line">            <span class="keyword">new</span> ImageContainer(<span class="keyword">null</span>, requestUrl, cacheKey, imageListener);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果缓存中没有，那么通知调用者显示默认加载图片</span></span><br><span class="line">    imageListener.onResponse(imageContainer, <span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 判断队列中请求是否已经存在了</span></span><br><span class="line">    BatchedImageRequest request = mInFlightRequests.get(cacheKey);</span><br><span class="line">    <span class="keyword">if</span> (request != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="comment">// 如果存在则添加该监听</span></span><br><span class="line">        request.addContainer(imageContainer);</span><br><span class="line">        <span class="keyword">return</span> imageContainer;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 否则则添加该imageRequest到请求队列中</span></span><br><span class="line">    Request&lt;Bitmap&gt; newRequest = makeImageRequest(requestUrl, maxWidth, maxHeight, scaleType,</span><br><span class="line">            cacheKey);</span><br><span class="line"></span><br><span class="line">    mRequestQueue.add(newRequest);</span><br><span class="line">    mInFlightRequests.put(cacheKey,</span><br><span class="line">            <span class="keyword">new</span> BatchedImageRequest(newRequest, imageContainer));</span><br><span class="line">    <span class="keyword">return</span> imageContainer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>NetworkDispatcher实际上就是继承自Thread的一个新线程，它负责不断同RequestQueue中不断取出Request来取获取。那么我们分析一下NetworkDispatcher中的run方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);</span><br><span class="line">    Request&lt;?&gt; request;</span><br><span class="line">    <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">        <span class="keyword">long</span> startTimeMs = SystemClock.elapsedRealtime();</span><br><span class="line">        <span class="comment">// release previous request object to avoid leaking request object when mQueue is drained.</span></span><br><span class="line">        request = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//从RequestQueue中取出一个request</span></span><br><span class="line">            request = mQueue.take();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            <span class="comment">// We may have been interrupted because it was time to quit.</span></span><br><span class="line">            <span class="keyword">if</span> (mQuit) &#123;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            request.addMarker(<span class="string">"network-queue-take"</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 如果改请求已经被取消，那么挑出该次循环，继续获取新的request</span></span><br><span class="line">            <span class="keyword">if</span> (request.isCanceled()) &#123;</span><br><span class="line">                request.finish(<span class="string">"network-discard-cancelled"</span>);</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            addTrafficStatsTag(request);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 这才是真真正正网络获取数据，mNetwork实际上就是HttpStack</span></span><br><span class="line">            NetworkResponse networkResponse = mNetwork.performRequest(request);</span><br><span class="line">            request.addMarker(<span class="string">"network-http-complete"</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// If the server returned 304 AND we delivered a response already,</span></span><br><span class="line">            <span class="comment">// we're done -- don't deliver a second identical response.</span></span><br><span class="line">            <span class="keyword">if</span> (networkResponse.notModified &amp;&amp; request.hasHadResponseDelivered()) &#123;</span><br><span class="line">                request.finish(<span class="string">"not-modified"</span>);</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 这个是用相应的request将从网络上获取到的数据转换为相应的数据</span></span><br><span class="line">            Response&lt;?&gt; response = request.parseNetworkResponse(networkResponse);</span><br><span class="line">            request.addMarker(<span class="string">"network-parse-complete"</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Write to cache if applicable.</span></span><br><span class="line">            <span class="comment">// <span class="doctag">TODO:</span> Only update cache metadata instead of entire record for 304s.</span></span><br><span class="line">            <span class="keyword">if</span> (request.shouldCache() &amp;&amp; response.cacheEntry != <span class="keyword">null</span>) &#123;</span><br><span class="line">                mCache.put(request.getCacheKey(), response.cacheEntry);</span><br><span class="line">                request.addMarker(<span class="string">"network-cache-written"</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Post the response back.</span></span><br><span class="line">            request.markDelivered();</span><br><span class="line">            mDelivery.postResponse(request, response);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (VolleyError volleyError) &#123;</span><br><span class="line">            volleyError.setNetworkTimeMs(SystemClock.elapsedRealtime() - startTimeMs);</span><br><span class="line">            parseAndDeliverNetworkError(request, volleyError);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            VolleyLog.e(e, <span class="string">"Unhandled exception %s"</span>, e.toString());</span><br><span class="line">            VolleyError volleyError = <span class="keyword">new</span> VolleyError(e);</span><br><span class="line">            volleyError.setNetworkTimeMs(SystemClock.elapsedRealtime() - startTimeMs);</span><br><span class="line">            mDelivery.postError(request, volleyError);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>好，我们就看看parseNetworkResponse<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> Response&lt;Bitmap&gt; <span class="title">parseNetworkResponse</span><span class="params">(NetworkResponse response)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Serialize all decode on a global lock to reduce concurrent heap usage.</span></span><br><span class="line">    <span class="keyword">synchronized</span> (sDecodeLock) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//看下面的方法</span></span><br><span class="line">            <span class="keyword">return</span> doParse(response);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (OutOfMemoryError e) &#123;</span><br><span class="line">            VolleyLog.e(<span class="string">"Caught OOM for %d byte image, url=%s"</span>, response.data.length, getUrl());</span><br><span class="line">            <span class="keyword">return</span> Response.error(<span class="keyword">new</span> ParseError(e));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> Response&lt;Bitmap&gt; <span class="title">doParse</span><span class="params">(NetworkResponse response)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//注意！！！看到了什么~直接将整个图片的数据放到额一个字节数组里，也就是说直接把请求的字符数据或者图片数据放到了内存里。好，我们做最后的总结。</span></span><br><span class="line">    <span class="keyword">byte</span>[] data = response.data;</span><br><span class="line">    BitmapFactory.Options decodeOptions = <span class="keyword">new</span> BitmapFactory.Options();</span><br><span class="line">    Bitmap bitmap = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">if</span> (mMaxWidth == <span class="number">0</span> &amp;&amp; mMaxHeight == <span class="number">0</span>) &#123;</span><br><span class="line">        decodeOptions.inPreferredConfig = mDecodeConfig;</span><br><span class="line">        bitmap = BitmapFactory.decodeByteArray(data, <span class="number">0</span>, data.length, decodeOptions);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// If we have to resize this image, first get the natural bounds.</span></span><br><span class="line">        decodeOptions.inJustDecodeBounds = <span class="keyword">true</span>;</span><br><span class="line">        BitmapFactory.decodeByteArray(data, <span class="number">0</span>, data.length, decodeOptions);</span><br><span class="line">        <span class="keyword">int</span> actualWidth = decodeOptions.outWidth;</span><br><span class="line">        <span class="keyword">int</span> actualHeight = decodeOptions.outHeight;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Then compute the dimensions we would ideally like to decode to.</span></span><br><span class="line">        <span class="keyword">int</span> desiredWidth = getResizedDimension(mMaxWidth, mMaxHeight,</span><br><span class="line">                actualWidth, actualHeight, mScaleType);</span><br><span class="line">        <span class="keyword">int</span> desiredHeight = getResizedDimension(mMaxHeight, mMaxWidth,</span><br><span class="line">                actualHeight, actualWidth, mScaleType);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Decode to the nearest power of two scaling factor.</span></span><br><span class="line">        decodeOptions.inJustDecodeBounds = <span class="keyword">false</span>;</span><br><span class="line">        <span class="comment">// TODO(ficus): Do we need this or is it okay since API 8 doesn't support it?</span></span><br><span class="line">        <span class="comment">// decodeOptions.inPreferQualityOverSpeed = PREFER_QUALITY_OVER_SPEED;</span></span><br><span class="line">        decodeOptions.inSampleSize =</span><br><span class="line">            findBestSampleSize(actualWidth, actualHeight, desiredWidth, desiredHeight);</span><br><span class="line">        Bitmap tempBitmap =</span><br><span class="line">            BitmapFactory.decodeByteArray(data, <span class="number">0</span>, data.length, decodeOptions);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// If necessary, scale down to the maximal acceptable size.</span></span><br><span class="line">        <span class="keyword">if</span> (tempBitmap != <span class="keyword">null</span> &amp;&amp; (tempBitmap.getWidth() &gt; desiredWidth ||</span><br><span class="line">                tempBitmap.getHeight() &gt; desiredHeight)) &#123;</span><br><span class="line">            bitmap = Bitmap.createScaledBitmap(tempBitmap,</span><br><span class="line">                    desiredWidth, desiredHeight, <span class="keyword">true</span>);</span><br><span class="line">            tempBitmap.recycle();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            bitmap = tempBitmap;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (bitmap == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> Response.error(<span class="keyword">new</span> ParseError(response));</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> Response.success(bitmap, HttpHeaderParser.parseCacheHeaders(response));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>从上面的分析可以看出，volley是现将请求到的数据放到内存中，在进行相应的转换，如果是一张大图，那么极有可能会导致OOM。所以，如果你的app中只有少量图片并且是图片很小，那么用volley是可以的，否则还是乖乖使用你的图片加载框架吧。</p>
+<p>总而言之一句话，如果你的app有大图，或者有大量的图片，并不适合用volley替代你的图片加载框架。</p>
+<p>既然本文提到了这几个图片加载框架，后面我会写一篇博客专门介绍这些图片框架的优缺点及使用注意事项，敬请期待。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/08/14/Android-网络-Volley-OkHttp-Https/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Android 网络: Volley+OkHttp+Https </div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Volley使用注意事项" data-title="Volley使用注意事项" data-url="https://github.com/chaimingkun/chaimingkun.github.io.git/2015/08/19/Volley使用注意事项/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 chai
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
